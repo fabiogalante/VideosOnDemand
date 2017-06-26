@@ -64,3 +64,16 @@
 .login-form .validation-summary-errors ul {
     padding-left: 20px;
 }
+
+.login-panel-heading, .register-panel {
+    margin-top: 40px;
+}
+
+.login-panel-body, .register-panel-body {
+    border: 1px solid #cecece !important;
+    padding: 20px;
+}
+.login-panel, .register-panel {
+    width: 380px;
+    border: none;
+}
