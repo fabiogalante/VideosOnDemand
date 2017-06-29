@@ -10,8 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AprendaDotNet.VideoOnDemand.Data;
+using AprendaDotNet.VideoOnDemand.Entities;
 using AprendaDotNet.VideoOnDemand.Models;
+using AprendaDotNet.VideoOnDemand.Repositories;
 using AprendaDotNet.VideoOnDemand.Services;
+using AprendaDotNet.VideoOnDemand.DtoModels;
 
 namespace AprendaDotNet.VideoOnDemand
 {
@@ -36,6 +39,8 @@ namespace AprendaDotNet.VideoOnDemand
 
         public IConfigurationRoot Configuration { get; }
 
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -52,7 +57,45 @@ namespace AprendaDotNet.VideoOnDemand
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            services.AddSingleton<IReadRepository, MockReadRepository>();
+
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Video, VideoDto>();
+
+                cfg.CreateMap<Download, DownloadDto>()
+                    .ForMember(dest => dest.DownloadUrl, src => src.MapFrom(s => s.Url))
+                    .ForMember(dest => dest.DownloadTitle, src => src.MapFrom(s => s.Title));
+
+                cfg.CreateMap<Instructor, InstructorDto>()
+                    .ForMember(dest => dest.InstructorName, src => src.MapFrom(s => s.Name))
+                    .ForMember(dest => dest.InstructorDescription, src => src.MapFrom(s => s.Description))
+                    .ForMember(dest => dest.InstructorAvatar, src => src.MapFrom(s => s.Thumbnail));
+
+                cfg.CreateMap<Course, CourseDto>()
+                    .ForMember(dest => dest.CourseId, src => src.MapFrom(s => s.Id))
+                    .ForMember(dest => dest.CourseTitle, src => src.MapFrom(s => s.Title))
+                    .ForMember(dest => dest.CourseDescription, src => src.MapFrom(s => s.Description))
+                    .ForMember(dest => dest.MarqueeImageUrl, src => src.MapFrom(s => s.MarqueeImageUrl))
+                    .ForMember(dest => dest.CourseImageUrl, src => src.MapFrom(s => s.ImageUrl));
+
+                cfg.CreateMap<Module, ModuleDto>()
+                    .ForMember(dest => dest.ModuleTitle, src => src.MapFrom(s => s.Title));
+            });
+
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
+
+
+
         }
+
+
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

@@ -39,7 +39,6 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
             }
         };
 
-
         private readonly List<UserCourse> _userCourses = new List<UserCourse>
         {
             new UserCourse
@@ -59,19 +58,24 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
             },
             new UserCourse
             {
-                UserId = "00000000-0000-0000-0000-000000000000",
+                UserId = "044d19b5-506d-4ff8-8b92-2d9ea0eb0580",
                 CourseId = 1
+            },
+            new UserCourse
+            {
+                UserId = "044d19b5-506d-4ff8-8b92-2d9ea0eb0580",
+                CourseId = 3
             }
         };
 
-        private List<Module> _modules = new List<Module>
+        private readonly List<Module> _modules = new List<Module>
         {
             new Module {Id = 1, Title = "Module 1", CourseId = 1},
             new Module {Id = 2, Title = "Module 2", CourseId = 1},
             new Module {Id = 3, Title = "Module 3", CourseId = 2}
         };
 
-        private List<Download> _downloads = new List<Download>
+        private readonly List<Download> _downloads = new List<Download>
         {
             new Download
             {
@@ -117,8 +121,7 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
             }
         };
 
-
-        private List<Video> _videos = new List<Video>
+        private readonly List<Video> _videos = new List<Video>
         {
             new Video
             {
@@ -175,9 +178,23 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
 
         public IEnumerable<Course> GetCourses(string userId)
         {
+
+
+
+            //Linq
+            var teste = (from uc in _userCourses
+                join c in _courses on uc.CourseId equals c.Id
+                where uc.UserId == userId
+                select c).ToList();
+
+
+          
+
+
+            //Lambda Expression
             var courses = _userCourses.Where(uc => uc.UserId.Equals(userId))
                 .Join(_courses, uc => uc.CourseId, c => c.Id, (uc, c) => new {Course = c})
-                .Select(s => s.Course);
+                .Select(s => s.Course).ToList();
 
             foreach (var course in courses)
             {
