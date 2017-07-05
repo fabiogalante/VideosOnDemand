@@ -36,6 +36,15 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
                 ImageUrl = "/images/course3.jpg",
                 Title = "MVC 5 For Beginners",
                 Description = "Course 3 Description: A very very long description."
+            },
+            new Course
+            {
+                Id = 4,
+                InstructorId = 1,
+                MarqueeImageUrl = "/images/laptop.jpg",
+                ImageUrl = "/images/course3.jpg",
+                Title = "Angular 2",
+                Description = "Course 4 Description: Aprenda Angular 2."
             }
         };
 
@@ -64,7 +73,18 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
             new UserCourse
             {
                 UserId = "044d19b5-506d-4ff8-8b92-2d9ea0eb0580",
+                CourseId = 2
+            },
+            new UserCourse
+            {
+                UserId = "044d19b5-506d-4ff8-8b92-2d9ea0eb0580",
                 CourseId = 3
+            },
+
+            new UserCourse
+            {
+                UserId = "044d19b5-506d-4ff8-8b92-2d9ea0eb0580",
+                CourseId = 4
             }
         };
 
@@ -72,7 +92,9 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
         {
             new Module {Id = 1, Title = "Module 1", CourseId = 1},
             new Module {Id = 2, Title = "Module 2", CourseId = 1},
-            new Module {Id = 3, Title = "Module 3", CourseId = 2}
+            new Module {Id = 3, Title = "Module 3", CourseId = 2},
+            new Module {Id = 4, Title = "Module 4", CourseId = 4},
+            new Module {Id = 5, Title = "Module 5", CourseId = 4}
         };
 
         private readonly List<Download> _downloads = new List<Download>
@@ -98,6 +120,14 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
                 Id = 3,
                 ModuleId = 3,
                 CourseId = 2,
+                Title = "ADO.NET 1 (PDF)",
+                Url = "https://1drv.ms/b/s!AuD5OaH0ExAwn48rX9TZZ3kAOX6Peg"
+            },
+            new Download
+            {
+                Id = 4,
+                ModuleId = 5,
+                CourseId = 4,
                 Title = "ADO.NET 1 (PDF)",
                 Url = "https://1drv.ms/b/s!AuD5OaH0ExAwn48rX9TZZ3kAOX6Peg"
             }
@@ -170,6 +200,18 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
                 Duration = 42,
                 Thumbnail = "/images/video4.jpg",
                 Url = "http://some_url/manifest"
+            },
+            new Video
+            {
+                Id = 5,
+                ModuleId = 5,
+                CourseId = 4,
+                Position = 1,
+                Title = "Video 5 Title",
+                Description = "Video 5 Description: Angular 2.",
+                Duration = 42,
+                Thumbnail = "/images/video4.jpg",
+                Url = "http://some_url/manifest"
             }
         };
 
@@ -179,21 +221,9 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
         public IEnumerable<Course> GetCourses(string userId)
         {
 
-
-
-            //Linq
-            var teste = (from uc in _userCourses
-                join c in _courses on uc.CourseId equals c.Id
-                where uc.UserId == userId
-                select c).ToList();
-
-
-          
-
-
             //Lambda Expression
             var courses = _userCourses.Where(uc => uc.UserId.Equals(userId))
-                .Join(_courses, uc => uc.CourseId, c => c.Id, (uc, c) => new {Course = c})
+                .Join(_courses, uc => uc.CourseId, c => c.Id, (uc, c) => new { Course = c })
                 .Select(s => s.Course).ToList();
 
             foreach (var course in courses)
@@ -204,8 +234,6 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
 
             return courses;
         }
-
-
         public Course GetCourse(string userId, int courseId)
         {
             var course = _userCourses.Where(uc => uc.UserId.Equals(userId))
@@ -223,8 +251,6 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
 
             return course;
         }
-
-
         public Video GetVideo(string userId, int videoId)
         {
             var video = _videos

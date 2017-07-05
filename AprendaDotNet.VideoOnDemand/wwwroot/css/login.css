@@ -1,14 +1,13 @@
-﻿.login-panel-heading {
+﻿.login-panel-heading, .register-panel {
     margin-top: 40px;
 }
 
-.login-panel {
+.login-panel, .register-panel {
     width: 280px;
     border: none;
 }
 
-
-.login-panel-body {
+.login-panel-body, .register-panel-body {
     border: 1px solid #cecece !important;
     padding: 20px;
 }
@@ -24,56 +23,46 @@
     display: block;
 }
 
+    .icon-addon .glyphicon {
+        position: absolute;
+        z-index: 2;
+        left: 30px;
+        font-size: 14px;
+        width: 20px;
+        margin-left: -2.5px;
+        text-align: center;
+        padding: 10px 0;
+        top: 1px
+    }
 
-.icon-addon .glyphicon {
-    position: absolute;
-    z-index: 2;
-    left: 30px;
-    font-size: 14px;
-    width: 20px;
-    margin-left: -2.5px;
-    text-align: center;
-    padding: 10px 0;
-    top: 1px
-}
-.icon-addon .form-control {
-    padding: 10px 16px 10px 30px;
-    border-radius: 0;
-    margin: 0 0 0 20px;
-}
-.icon-addon:hover .glyphicon {
-    color: #2580db;
-}
-.login-form input {
+    .icon-addon .form-control {
+        padding: 10px 16px 10px 30px;
+        border-radius: 0;
+        margin: 0 0 0 20px;
+    }
+
+    .icon-addon:hover .glyphicon {
+        color: #2580db;
+    }
+
+.login-form input, .register-form input {
     max-width: 225px;
 }
-
 
 .login-form .checkbox {
     margin-left: 20px;
     margin-top: -10px;
 }
 
-.login-form button {
+.login-form button, .register-form button {
     margin-bottom: 5px;
     margin-left: 5px;
-    max-width: 235px;
+    max-width: 225px;
     width: 100%;
 }
 
-.login-form .validation-summary-errors ul {
+.login-form .validation-summary-errors ul, 
+.register-form .validation-summary-errors ul {
     padding-left: 20px;
 }
 
-.login-panel-heading, .register-panel {
-    margin-top: 40px;
-}
-
-.login-panel-body, .register-panel-body {
-    border: 1px solid #cecece !important;
-    padding: 20px;
-}
-.login-panel, .register-panel {
-    width: 380px;
-    border: none;
-}

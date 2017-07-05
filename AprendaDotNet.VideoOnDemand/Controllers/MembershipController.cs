@@ -40,7 +40,8 @@ namespace AprendaDotNet.VideoOnDemand.Controllers
 
             for (var i = 0; i < noOfRows; i++)
             {
-                dashboardModel.Courses.Add(courseDtoObjects.Take(3).ToList());
+                //dashboardModel.Courses.Add(courseDtoObjects.Take(3).ToList());
+                dashboardModel.Courses.Add(courseDtoObjects.ToList());
             }
 
 

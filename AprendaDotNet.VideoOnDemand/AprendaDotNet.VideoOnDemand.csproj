@@ -10,10 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\admin.css" />
     <Content Include="wwwroot\css\course-panel.css" />
+    <Content Include="wwwroot\css\course.css" />
+    <Content Include="wwwroot\css\instructor-bio.css" />
     <Content Include="wwwroot\css\login.css" />
     <Content Include="wwwroot\css\membership.css" />
     <Content Include="wwwroot\css\menu.css" />
+    <Content Include="wwwroot\css\module.css" />
+    <Content Include="wwwroot\css\site.css" />
+    <Content Include="wwwroot\css\site.min.css" />
+    <Content Include="wwwroot\css\video.css" />
     <Content Include="wwwroot\images\avatar.png" />
     <Content Include="wwwroot\images\banner1.svg" />
     <Content Include="wwwroot\images\banner2.svg" />
