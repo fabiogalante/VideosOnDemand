@@ -94,7 +94,9 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
             new Module {Id = 2, Title = "Module 2", CourseId = 1},
             new Module {Id = 3, Title = "Module 3", CourseId = 2},
             new Module {Id = 4, Title = "Module 4", CourseId = 4},
-            new Module {Id = 5, Title = "Module 5", CourseId = 4}
+            new Module {Id = 5, Title = "Module 5", CourseId = 4},
+            new Module {Id = 6, Title = "SQL Data Repository", CourseId = 4}
+
         };
 
         private readonly List<Download> _downloads = new List<Download>
@@ -130,6 +132,14 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
                 CourseId = 4,
                 Title = "ADO.NET 1 (PDF)",
                 Url = "https://1drv.ms/b/s!AuD5OaH0ExAwn48rX9TZZ3kAOX6Peg"
+            },
+            new Download
+            {
+                Id = 5,
+                ModuleId = 6,
+                CourseId = 4,
+                Title = "Data Repository (PDF)",
+                Url = "https://1drv.ms/b/s!AuD5OaH0ExAwn48rX9TZZ3kAOX6Peg"
             }
         };
 
@@ -163,7 +173,7 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
                 Description = "Video 1 Description: A very very long description.",
                 Duration = 50,
                 Thumbnail = "/images/video1.jpg",
-                Url = "http://some_url/manifest"
+                Url = "https://www.youtube.com/watch?v=BJFyzpBcaCY"
             },
             new Video
             {
@@ -212,7 +222,20 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
                 Duration = 42,
                 Thumbnail = "/images/video4.jpg",
                 Url = "http://some_url/manifest"
+            },
+            new Video
+            {
+                Id = 6,
+                ModuleId = 6,
+                CourseId = 4,
+                Position = 1,
+                Title = "SQL Data Repository Vídeo",
+                Description = "Aprenda Data Repository.",
+                Duration = 42,
+                Thumbnail = "/images/video4.jpg",
+                Url = "http://some_url/manifest"
             }
+
         };
 
         #endregion
