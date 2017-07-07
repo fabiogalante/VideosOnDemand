@@ -16,6 +16,140 @@ namespace AprendaDotNet.VideoOnDemand.Data.Migrations
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.Course", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("InstructorId");
+
+                    b.Property<string>("MarqueeImageUrl")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(80);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstructorId");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.Download", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CourseId");
+
+                    b.Property<int>("ModuleId");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(80);
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(1024);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("Downloads");
+                });
+
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.Instructor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80);
+
+                    b.Property<string>("Thumbnail")
+                        .HasMaxLength(1024);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Instructors");
+                });
+
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.Module", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CourseId");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(80);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Modules");
+                });
+
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.UserCourse", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("CourseId");
+
+                    b.HasKey("UserId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("UserCourses");
+                });
+
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.Video", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CourseId");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1024);
+
+                    b.Property<int>("Duration");
+
+                    b.Property<int>("ModuleId");
+
+                    b.Property<int>("Position");
+
+                    b.Property<string>("Thumbnail")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(80);
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(1024);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("Videos");
+                });
+
             modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -173,41 +307,71 @@ namespace AprendaDotNet.VideoOnDemand.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.Course", b =>
+                {
+                    b.HasOne("AprendaDotNet.VideoOnDemand.Entities.Instructor", "Instructor")
+                        .WithMany("Courses")
+                        .HasForeignKey("InstructorId");
+                });
+
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.Download", b =>
+                {
+                    b.HasOne("AprendaDotNet.VideoOnDemand.Entities.Module")
+                        .WithMany("Downloads")
+                        .HasForeignKey("ModuleId");
+                });
+
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.Module", b =>
+                {
+                    b.HasOne("AprendaDotNet.VideoOnDemand.Entities.Course", "Course")
+                        .WithMany("Modules")
+                        .HasForeignKey("CourseId");
+                });
+
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.UserCourse", b =>
+                {
+                    b.HasOne("AprendaDotNet.VideoOnDemand.Entities.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId");
+                });
+
+            modelBuilder.Entity("AprendaDotNet.VideoOnDemand.Entities.Video", b =>
+                {
+                    b.HasOne("AprendaDotNet.VideoOnDemand.Entities.Module")
+                        .WithMany("Videos")
+                        .HasForeignKey("ModuleId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
                         .WithMany("Claims")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
                     b.HasOne("AprendaDotNet.VideoOnDemand.Models.ApplicationUser")
                         .WithMany("Claims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
                     b.HasOne("AprendaDotNet.VideoOnDemand.Models.ApplicationUser")
                         .WithMany("Logins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
 
                     b.HasOne("AprendaDotNet.VideoOnDemand.Models.ApplicationUser")
                         .WithMany("Roles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
         }
     }

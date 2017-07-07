@@ -38,6 +38,7 @@
     <Content Include="wwwroot\images\video3.jpg" />
     <Content Include="wwwroot\images\video4.jpg" />
     <Content Include="wwwroot\images\video5.jpg" />
+    <Content Include="wwwroot\Mp4\atento.mp4" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.1.0" />

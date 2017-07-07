@@ -221,7 +221,7 @@ namespace AprendaDotNet.VideoOnDemand.Repositories
                 Description = "Video 5 Description: Angular 2.",
                 Duration = 42,
                 Thumbnail = "/images/video4.jpg",
-                Url = "http://some_url/manifest"
+                Url = "/mp4/atento.mp4"
             },
             new Video
             {

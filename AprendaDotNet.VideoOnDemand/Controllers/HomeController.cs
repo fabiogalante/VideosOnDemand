@@ -27,7 +27,7 @@ namespace AprendaDotNet.VideoOnDemand.Controllers
             //var videos = rep.GetVideos("4ad684f8-bb70-4968-85f8-458aa7dc19a3");
             //var videosForModule = rep.GetVideos("4ad684f8-bb70-4968-85f8-458aa7dc19a3", 1);
 
-
+           
             if (!_signInManager.IsSignedIn(User))
                 return RedirectToAction("Login", "Account");
 

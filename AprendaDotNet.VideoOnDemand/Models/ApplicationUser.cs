@@ -10,4 +10,10 @@ namespace AprendaDotNet.VideoOnDemand.Models
     public class ApplicationUser : IdentityUser
     {
     }
+
+    public class MyIdentityRole : IdentityRole
+    {
+    }
+
+
 }
